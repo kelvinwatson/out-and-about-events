@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Out and About Events</string>
+
+    <string name="list">List</string>
+    <string name="list_icon_content_desc">List icon</string>
+
+    <string name="faves">Faves</string>
+    <string name="faves_icon_content_desc">Faves icon</string>
+
+    <string name="account">Account</string>
+    <string name="account_icon_content_desc">Account icon</string>
 </resources>
