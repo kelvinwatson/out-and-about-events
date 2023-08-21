@@ -5,11 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.determinasian.outandaboutevents.OabeAppState
-import com.determinasian.outandaboutevents.eventslist.EventsList
+import com.determinasian.outandaboutevents.AppState
+import com.determinasian.outandaboutevents.ui.components.eventslist.EventsList
 
 @Composable
-fun OabeNavHost(appState: OabeAppState, modifier: Modifier = Modifier) {
+fun NavHost(appState: AppState, modifier: Modifier = Modifier) {
     NavHost(
         navController = appState.navController,
         startDestination = TopLevelDestination.List.route,

@@ -18,34 +18,37 @@ import com.determinasian.outandaboutevents.navigation.TopLevelDestination
 fun rememberAppState(
     navController: NavHostController = rememberNavController(),
     windowSizeClass: WindowSizeClass,
-): OabeAppState = remember(
+): AppState = remember(
     navController,
     windowSizeClass
-) { OabeAppState(navController, windowSizeClass) }
+) { AppState(navController, windowSizeClass) }
 
 
 @Stable
-class OabeAppState(
+class AppState(
     val navController: NavHostController,
-    val windowSizeClass: WindowSizeClass
+    private val windowSizeClass: WindowSizeClass
 ) {
 
-    // UI state
     val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination
 
-    // UI state
+    val isCurrentDestinationList: Boolean
+        @Composable get() = TopLevelDestination.List.route == currentDestination?.route
+
+    val showBottomBar: Boolean
+        get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
+                windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+
+    val showNavRail: Boolean
+        get() = !showBottomBar
+
     val topLevelDestinations = listOf(
         TopLevelDestination.List,
         TopLevelDestination.Faves,
         TopLevelDestination.Explore,
         TopLevelDestination.Account
     )
-
-    // UI logic
-    val shouldShowBottomBar: Boolean
-        get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
-                windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         navController.navigate(topLevelDestination.route, navOptions {
@@ -62,10 +65,4 @@ class OabeAppState(
             restoreState = true
         })
     }
-
-    // UI logic
-    val shouldShowNavRail: Boolean
-        get() = !shouldShowBottomBar
-
-
 }
