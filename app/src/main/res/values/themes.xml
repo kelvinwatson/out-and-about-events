@@ -4,7 +4,7 @@
     <style name="Theme.OutAndAboutEvents.Splash" parent="Theme.SplashScreen">
 
         <!-- splash screen -->
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_logo_splash</item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
         <item name="windowSplashScreenBackground">@color/white</item> <!-- todo use color tokens -->
 
