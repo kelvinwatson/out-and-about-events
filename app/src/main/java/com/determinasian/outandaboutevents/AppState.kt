@@ -1,5 +1,9 @@
 package com.determinasian.outandaboutevents
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -29,9 +33,15 @@ class AppState(
     val navController: NavHostController,
     private val windowSizeClass: WindowSizeClass
 ) {
+    @OptIn(ExperimentalMaterial3Api::class)
+    val collapsingToolbarScrollBehavior: TopAppBarScrollBehavior
+        @Composable get() = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination
+
+    val isDarkMode: Boolean
+        @Composable get() = isSystemInDarkTheme() //TODO allow user override via CompositionLocal
 
     val isCurrentDestinationList: Boolean
         @Composable get() = TopLevelDestination.List.route == currentDestination?.route
@@ -42,6 +52,7 @@ class AppState(
 
     val showNavRail: Boolean
         get() = !showBottomBar
+
 
     val topLevelDestinations = listOf(
         TopLevelDestination.List,

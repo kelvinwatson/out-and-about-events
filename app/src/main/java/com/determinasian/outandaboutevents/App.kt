@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,18 +23,17 @@ fun App(
     appState: AppState = rememberAppState(windowSizeClass = windowSizeClass)
 ) {
 
-    val topBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-
+    val toolbarScrollBehavior = appState.collapsingToolbarScrollBehavior
     Scaffold(
         topBar = {
             // conditional rendering
             if (appState.isCurrentDestinationList) {
-                CollapsingAppBar(topBarScrollBehavior = topBarScrollBehavior)
+                CollapsingAppBar(toolbarScrollBehavior, appState.isDarkMode)
             }
         },
         modifier = Modifier
             .fillMaxSize()
-            .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+            .nestedScroll(toolbarScrollBehavior.nestedScrollConnection),
         bottomBar = {
             if (appState.showBottomBar) {
                 BottomNav(

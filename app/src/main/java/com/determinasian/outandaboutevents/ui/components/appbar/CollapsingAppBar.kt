@@ -13,25 +13,19 @@ import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -57,32 +51,45 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.determinasian.outandaboutevents.R
+import com.determinasian.outandaboutevents.ui.CharConstants
+import com.determinasian.outandaboutevents.ui.theme.promptFamily
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CollapsingAppBar(topBarScrollBehavior: TopAppBarScrollBehavior) {
+fun CollapsingAppBar(toolbarScrollBehavior: TopAppBarScrollBehavior, isDarkMode: Boolean) {
 
     CollapsingAppBarInternal(
         navigationIcon = { AppBarDrawerIcon() },
         title = {
             Image(
-                painterResource(id = R.drawable.ic_logo_with_text),
+                painterResource(
+                    id =
+                    if (isDarkMode) {
+                        R.drawable.ic_logo_with_text_neon
+                    } else {
+                        R.drawable.ic_logo_with_text
+                    }
+                ),
                 contentDescription = stringResource(
                     id = R.string.logo_content_desc
                 ),
-                modifier = Modifier.size(170.dp),
+                modifier = Modifier.size(if (isDarkMode) 190.dp else 170.dp),
             )
         },
-        scrollBehavior = topBarScrollBehavior
+        scrollBehavior = toolbarScrollBehavior
     )
 }
 
@@ -96,7 +103,7 @@ fun CollapsingAppBarInternal(
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
     maxHeight: Dp = 240.dp,
     pinnedHeight: Dp = 64.dp,
-    titleBottomPadding:Dp = 28.dp,
+    titleBottomPadding: Dp = 28.dp,
     scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
     if (maxHeight <= pinnedHeight) {
@@ -164,7 +171,10 @@ fun CollapsingAppBarInternal(
         Modifier
     }
 
-    Surface(modifier = modifier.then(appBarDragModifier), color = appBarContainerColor) {
+    Surface(
+        modifier = modifier.then(appBarDragModifier),
+        color = MaterialTheme.colorScheme.surface
+    ) {
         Column {
             // the smaller pinned toolbar
             TopAppBarLayout(
@@ -175,8 +185,34 @@ fun CollapsingAppBarInternal(
                 heightPx = pinnedHeightPx,
                 navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
                 titleContentColor = MaterialTheme.colorScheme.onSurface,
-                actionIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                title = { Text("Out and About Events Small Title")},
+                actionIconContentColor = MaterialTheme.colorScheme.onSurface,
+                title = {
+                    Row {
+                        val collapsedTitle = buildAnnotatedString {
+                            withStyle(
+                                style = SpanStyle(
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontFamily = promptFamily,
+                                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                                    letterSpacing = (-1).sp
+                                )
+                            ) {
+                                append(stringResource(id = R.string.out_and_about).lowercase())
+                            }
+                            append(CharConstants.SPACE)
+                            append(CharConstants.SPACE)
+                            withStyle(
+                                style = SpanStyle(
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontSize = MaterialTheme.typography.titleSmall.fontSize
+                                )
+                            ) {
+                                append(stringResource(id = R.string.events_for_men).uppercase())
+                            }
+                        }
+                        Text(collapsedTitle)
+                    }
+                },
                 titleTextStyle = MaterialTheme.typography.titleLarge,
                 titleAlpha = topTitleAlpha,
                 titleVerticalArrangement = Arrangement.Center,
@@ -205,7 +241,7 @@ fun CollapsingAppBarInternal(
                 titleHorizontalArrangement = Arrangement.Center,
                 titleBottomPadding = titleBottomPaddingPx,
                 hideTitleSemantics = hideBottomRowSemantics,
-                navigationIcon = navigationIcon,
+                navigationIcon = {},
                 actions = {}
             )
         }
@@ -214,7 +250,7 @@ fun CollapsingAppBarInternal(
 
 @Composable
 internal fun setContainerColor(colorTransitionFraction: Float): Color {
-    val containerColor =  MaterialTheme.colorScheme.surface
+    val containerColor = MaterialTheme.colorScheme.surface
     return lerp(
         containerColor,
         MaterialTheme.colorScheme.applyTonalElevation(
@@ -224,6 +260,7 @@ internal fun setContainerColor(colorTransitionFraction: Float): Color {
         FastOutLinearInEasing.transform(colorTransitionFraction)
     )
 }
+
 fun ColorScheme.applyTonalElevation(backgroundColor: Color, elevation: Dp): Color {
     return if (backgroundColor == surface) {
         surfaceColorAtElevation(elevation)
@@ -249,7 +286,7 @@ private fun TopAppBarLayout(
     navigationIcon: @Composable () -> Unit,
     actions: @Composable () -> Unit,
 ) {
-    val topBarHorizontalPadding=4.dp
+    val topBarHorizontalPadding = 4.dp
     Layout(
         {
             Box(
@@ -327,7 +364,10 @@ private fun TopAppBarLayout(
                     // Arrangement.Start.
                     // An TopAppBarTitleInset will make sure the title is offset in case the
                     // navigation icon is missing.
-                    else -> max((16.dp-topBarHorizontalPadding).roundToPx(), navigationIconPlaceable.width)
+                    else -> max(
+                        (16.dp - topBarHorizontalPadding).roundToPx(),
+                        navigationIconPlaceable.width
+                    )
                 },
                 y = when (titleVerticalArrangement) {
                     Arrangement.Center -> (layoutHeight - titlePlaceable.height) / 2
