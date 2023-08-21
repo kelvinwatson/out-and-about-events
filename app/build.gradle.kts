@@ -55,6 +55,9 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
+    //material3
+    implementation("com.google.android.material:material:1.9.0")
+
     //compose
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
@@ -62,9 +65,13 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3-window-size-class:1.1.1")
 
     val navVersion = "2.7.0"
     implementation("androidx.navigation:navigation-compose:$navVersion")
+
+    //splash screen
+    implementation("androidx.core:core-splashscreen:1.0.0")
 
     //test
     testImplementation("junit:junit:4.13.2")

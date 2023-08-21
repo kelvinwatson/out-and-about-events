@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Theme.OutAndAboutEvents" parent="Theme.Material3.Dark.NoActionBar">
+
+    </style>
+
     <style name="Theme.OutAndAboutEvents.Splash" parent="Theme.SplashScreen">
 
         <!-- splash screen -->
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
-        <item name="windowSplashScreenBackground">@color/white</item> <!-- todo use color tokens -->
+        <item name="windowSplashScreenBackground">@color/black</item> <!-- todo use attributes -->
 
         <item name="postSplashScreenTheme">@style/Theme.OutAndAboutEvents</item>
-    </style>
-
-    <style name="Theme.OutAndAboutEvents" parent="Theme.Material3.Light.NoActionBar">
-
     </style>
 </resources>

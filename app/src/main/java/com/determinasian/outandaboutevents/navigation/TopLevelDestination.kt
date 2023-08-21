@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.AccountBox
 import androidx.compose.material.icons.sharp.Favorite
+import androidx.compose.material.icons.sharp.Info
 import androidx.compose.material.icons.sharp.List
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.determinasian.outandaboutevents.R
@@ -28,6 +29,13 @@ sealed class TopLevelDestination(
         R.string.faves_icon_content_desc
     )
 
+    data object Explore : TopLevelDestination(
+        R.string.explore,
+        "Explore",
+        Icons.Sharp.Info,
+        R.string.explore_icon_content_desc
+    )
+
     data object Account : TopLevelDestination(
         R.string.account,
         "Account",
@@ -35,9 +43,3 @@ sealed class TopLevelDestination(
         R.string.account_icon_content_desc
     )
 }
-
-val topLevelDestinations = listOf(
-    TopLevelDestination.List,
-    TopLevelDestination.Faves,
-    TopLevelDestination.Account
-)
