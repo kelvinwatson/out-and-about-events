@@ -2,6 +2,7 @@ package com.determinasian.outandaboutevents.ui.theme
 
 import android.app.Activity
 import android.os.Build
+import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -18,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.determinasian.outandaboutevents.model.ThemeType
 
 /**
  * Used on devices running on Android OS < 12+
@@ -91,15 +93,14 @@ private val standardDarkColors = darkColorScheme(
 
 @Composable
 fun OutAndAboutEventsTheme(
-    themeViewModel: ThemeViewModel = viewModel(),
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    themeType: ThemeType,
     content: @Composable () -> Unit
 ) {
-    val themeType by themeViewModel.themeType.collectAsState()
-    val dynamicColor = themeType == ThemeViewModel.ThemeType.DYNAMIC_COLOR
-    val darkTheme = themeViewModel.darkTheme()
+    val useDynamicColor = themeType == ThemeType.DYNAMIC_COLOR
 
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        useDynamicColor && supportsDynamicTheming() -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
@@ -122,3 +123,7 @@ fun OutAndAboutEventsTheme(
         content = content
     )
 }
+
+
+@ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+fun supportsDynamicTheming() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
