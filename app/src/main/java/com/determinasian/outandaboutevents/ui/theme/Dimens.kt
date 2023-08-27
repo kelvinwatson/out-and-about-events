@@ -14,8 +14,8 @@ object Dimens {
     val MaxToolbarHeight = 176.dp
     val ToolbarSpacing = 16.dp
 
-    val CardPadding = 12.dp
-    val CardContentPadding = 8.dp
+    val CardPadding = 16.dp
+    val CardContentPadding = 12.dp
 
     val SuggestionChipSpacing = 4.dp
 
@@ -28,8 +28,6 @@ object Dimens {
 
 }
 
-@Composable
-fun Dp.toPx() = with(LocalDensity.current) { this@toPx.toPx().toInt() }
 
 //class Dimensions(
 //    val grid_0_25: Dp,

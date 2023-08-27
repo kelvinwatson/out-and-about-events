@@ -3,7 +3,6 @@
 ## Stack
 
 * Jetpack Compose
-* Coil
 
 ## TODO
 
@@ -15,6 +14,6 @@
 * Composables:
   * Event list item
   * Event detail
-  * 
+  * Nested navigation graph (IN PROGRESS)
 * Combing flows?
 * Modularize ui components, domain layer etc
