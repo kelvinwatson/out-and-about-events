@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.determinasian.outandaboutevents.AppState
-import com.determinasian.outandaboutevents.ui.components.eventslist.EventsList
+import com.determinasian.outandaboutevents.ui.components.event.EventsList
 
 @Composable
 fun NavHost(appState: AppState, modifier: Modifier = Modifier) {

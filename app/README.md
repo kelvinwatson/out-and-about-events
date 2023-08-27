@@ -3,6 +3,7 @@
 ## Stack
 
 * Jetpack Compose
+* Coil
 
 ## TODO
 
@@ -11,3 +12,9 @@
 * Theme switching
 * Build service
 * Caching user favorites
+* Composables:
+  * Event list item
+  * Event detail
+  * 
+* Combing flows?
+* Modularize ui components, domain layer etc

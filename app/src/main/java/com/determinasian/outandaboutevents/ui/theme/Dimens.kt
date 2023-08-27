@@ -1,15 +1,35 @@
 package com.determinasian.outandaboutevents.ui.theme
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 // TODO Use CompositionLocalProvider to provide dimensions as part of [OutAndAboutEventsTheme]
 
+@Immutable
 object Dimens {
     val MinToolbarHeight = 96.dp
     val MaxToolbarHeight = 176.dp
     val ToolbarSpacing = 16.dp
+
+    val CardPadding = 12.dp
+    val CardContentPadding = 8.dp
+
+    val SuggestionChipSpacing = 4.dp
+
+    val ImageRoundedCorner = 8.dp
+    val ImageThumbnailSize = 72.dp
+
+    val SpacerHeightStandard = 16.dp
+
+    val MinInteractionTarget = 24.dp
+
 }
 
+@Composable
+fun Dp.toPx() = with(LocalDensity.current) { this@toPx.toPx().toInt() }
 
 //class Dimensions(
 //    val grid_0_25: Dp,
