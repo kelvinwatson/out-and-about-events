@@ -11,14 +11,10 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.determinasian.outandaboutevents.model.ThemeType
 
 /**
@@ -94,7 +90,7 @@ private val standardDarkColors = darkColorScheme(
 @Composable
 fun OutAndAboutEventsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    themeType: ThemeType,
+    themeType: ThemeType = ThemeType.APP_CUSTOM,
     content: @Composable () -> Unit
 ) {
     val useDynamicColor = themeType == ThemeType.DYNAMIC_COLOR

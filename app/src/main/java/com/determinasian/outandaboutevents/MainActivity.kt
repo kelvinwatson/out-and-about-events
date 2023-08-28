@@ -18,8 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.compose.rememberNavController
 import com.determinasian.outandaboutevents.model.DarkThemeConfig
 import com.determinasian.outandaboutevents.model.ThemeType
+import com.determinasian.outandaboutevents.navigation.RootNavigationGraph
 import com.determinasian.outandaboutevents.ui.theme.OutAndAboutEventsTheme
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -54,7 +56,9 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    App(
+
+                    RootNavigationGraph(
+                        navController = rememberNavController(),
                         windowSizeClass = calculateWindowSizeClass(activity = this)
                     )
                 }
