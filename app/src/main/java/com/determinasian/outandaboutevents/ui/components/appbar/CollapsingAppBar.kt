@@ -4,7 +4,6 @@ import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.AnimationState
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.DecayAnimationSpec
-import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateDecay
 import androidx.compose.animation.core.animateTo
 import androidx.compose.foundation.Image
@@ -22,7 +21,6 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -31,18 +29,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.TopAppBarState
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.layout.Layout
@@ -62,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.determinasian.outandaboutevents.R
 import com.determinasian.outandaboutevents.ui.CharConstants
+import com.determinasian.outandaboutevents.ui.theme.Dimens.ToolbarSpacing
 import com.determinasian.outandaboutevents.ui.theme.promptFamily
 import kotlin.math.abs
 import kotlin.math.max
@@ -86,7 +81,11 @@ fun CollapsingAppBar(toolbarScrollBehavior: TopAppBarScrollBehavior, isDarkMode:
                 contentDescription = stringResource(
                     id = R.string.logo_content_desc
                 ),
-                modifier = Modifier.size(if (isDarkMode) 190.dp else 170.dp),
+                modifier = Modifier
+                    .size(
+                        if (isDarkMode) 190.dp else 170.dp
+                    )
+                    .padding(bottom = ToolbarSpacing),
             )
         },
         scrollBehavior = toolbarScrollBehavior
@@ -134,7 +133,7 @@ fun CollapsingAppBarInternal(
     // This will potentially animate or interpolate a transition between the container color and the
     // container's scrolled color according to the app bar's scroll state.
     val colorTransitionFraction = scrollBehavior?.state?.collapsedFraction ?: 0f
-    val appBarContainerColor by rememberUpdatedState(setContainerColor(colorTransitionFraction))
+//    val appBarContainerColor by rememberUpdatedState(setContainerColor(colorTransitionFraction))
 
     // Wrap the given actions in a Row.
     val actionsRow = @Composable {
@@ -248,26 +247,26 @@ fun CollapsingAppBarInternal(
     }
 }
 
-@Composable
-internal fun setContainerColor(colorTransitionFraction: Float): Color {
-    val containerColor = MaterialTheme.colorScheme.surface
-    return lerp(
-        containerColor,
-        MaterialTheme.colorScheme.applyTonalElevation(
-            backgroundColor = containerColor,
-            elevation = 3.dp
-        ),
-        FastOutLinearInEasing.transform(colorTransitionFraction)
-    )
-}
+//@Composable
+//internal fun setContainerColor(colorTransitionFraction: Float): Color {
+//    val containerColor = MaterialTheme.colorScheme.surface
+//    return lerp(
+//        containerColor,
+//        MaterialTheme.colorScheme.applyTonalElevation(
+//            backgroundColor = containerColor,
+//            elevation = 3.dp
+//        ),
+//        FastOutLinearInEasing.transform(colorTransitionFraction)
+//    )
+//}
 
-fun ColorScheme.applyTonalElevation(backgroundColor: Color, elevation: Dp): Color {
-    return if (backgroundColor == surface) {
-        surfaceColorAtElevation(elevation)
-    } else {
-        backgroundColor
-    }
-}
+//fun ColorScheme.applyTonalElevation(backgroundColor: Color, elevation: Dp): Color {
+//    return if (backgroundColor == surface) {
+//        surfaceColorAtElevation(elevation)
+//    } else {
+//        backgroundColor
+//    }
+//}
 
 @Composable
 private fun TopAppBarLayout(
