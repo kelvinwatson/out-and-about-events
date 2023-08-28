@@ -15,6 +15,7 @@ fun EventsList() {
                 EventCard(
                     eventId = eventId.toLong(),
                     thumbnailUrl = problematicUrl,
+                    source = if (eventId % 3 == 0) null else "Anonymous source".uppercase(),
                     sponsor = if (eventId % 2 == 0) null else "EventBrite".uppercase(),
                     title = "Some event title",
                     dateAndTimeRange = "Some date range",

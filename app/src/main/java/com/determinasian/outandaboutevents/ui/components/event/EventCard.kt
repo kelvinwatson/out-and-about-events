@@ -35,12 +35,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.determinasian.outandaboutevents.R
+import com.determinasian.outandaboutevents.ui.CharConstants
 import com.determinasian.outandaboutevents.ui.theme.Dimens.CardContentPadding
 import com.determinasian.outandaboutevents.ui.theme.Dimens.ImageRoundedCorner
 import com.determinasian.outandaboutevents.ui.theme.Dimens.ImageThumbnailSize
 import com.determinasian.outandaboutevents.ui.theme.Dimens.MinInteractionTarget
 import com.determinasian.outandaboutevents.ui.theme.Dimens.SpacerHeightStandard
 import com.determinasian.outandaboutevents.ui.theme.Dimens.SuggestionChipSpacing
+
 
 /**
  * Any parameters should be provided in displayble format.
@@ -77,14 +79,9 @@ fun EventCard(
                     Column(
                         modifier = Modifier.weight(1.0f)
                     ) {
-                        sponsor.takeIf { !it.isNullOrBlank() }?.let {
-                            Text(
-                                text = it,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                style = MaterialTheme.typography.labelMedium
-                            )
-                        }
+
+                        SponsorSourceText(source, sponsor)
+
                         Text(
                             modifier = Modifier.fillMaxWidth(),
                             text = title,
@@ -165,10 +162,32 @@ fun EventCard(
 }
 
 @Composable
-fun debugPlaceholder(@DrawableRes debugPreview: Int) = if (LocalInspectionMode.current) {
+private fun debugPlaceholder(@DrawableRes debugPreview: Int) = if (LocalInspectionMode.current) {
     painterResource(id = debugPreview)
 } else {
     null
+}
+
+@Composable
+private fun SponsorSourceText(source: String?, sponsor: String?) {
+    val result: String? = if (!source.isNullOrBlank() && !sponsor.isNullOrBlank()) {
+        "$source ${CharConstants.BULLET} $sponsor"
+    } else if (!source.isNullOrBlank()) {
+        source
+    } else if (!sponsor.isNullOrBlank()) {
+        sponsor
+    } else {
+        null
+    }
+
+    if (!result.isNullOrBlank()) {
+        Text(
+            text = result,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            style = MaterialTheme.typography.labelMedium
+        )
+    }
 }
 
 @[Composable Preview]
