@@ -18,7 +18,7 @@ fun RootNavigationGraph(
     ) {
 
         composable(route = Graph.Routes.APP) {
-            App()
+            App(windowSizeClass = windowSizeClass)
         }
     }
 }
