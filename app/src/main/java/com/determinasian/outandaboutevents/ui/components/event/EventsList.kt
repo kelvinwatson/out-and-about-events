@@ -15,8 +15,8 @@ fun EventsList(navController: NavController) {
             item(eventId) {
                 EventCard(
                     eventId = eventId.toLong(),
-                    thumbnailUrl = problematicUrl,
-                    source = if (eventId % 3 == 0) null else "Anonymous source".uppercase(),
+                    thumbnailUrl = url,
+                    host = if (eventId % 4 == 0) null else "Hosted by Gay Events".uppercase(),
                     sponsor = if (eventId % 2 == 0) null else "EventBrite".uppercase(),
                     title = "Some event title",
                     dateAndTimeRange = "Some date range",
@@ -30,6 +30,4 @@ fun EventsList(navController: NavController) {
     }
 }
 
-const val problematicUrl = "https://images.pexels.com/photos/426976/pexels-photo-426976.jpeg"
-const val url =
-    "https://media.istockphoto.com/id/1372401945/photo/modern-black-picture-or-square-photo-frame-isolated.webp?b=1&s=170667a&w=0&k=20&c=bmXOZlLuoGDq9RtS64i1JWl8nz1lKg-2hVE1SRT8I8E="
+const val url = "https://images.pexels.com/photos/426976/pexels-photo-426976.jpeg"

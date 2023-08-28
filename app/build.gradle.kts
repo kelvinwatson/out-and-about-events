@@ -67,14 +67,16 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material3:material3-window-size-class:1.1.1")
 
-    val navVersion = "2.7.0"
+    val navVersion = "2.7.1"
     implementation("androidx.navigation:navigation-compose:$navVersion")
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     //test
+    testImplementation("org.hamcrest:hamcrest:2.2")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
 
     //androidTest
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

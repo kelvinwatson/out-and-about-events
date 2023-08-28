@@ -23,4 +23,6 @@
 
     <string name="out_and_about">Out and About</string>
     <string name="events_for_men">Events for men</string>
+
+    <string name="host">Host</string>
 </resources>

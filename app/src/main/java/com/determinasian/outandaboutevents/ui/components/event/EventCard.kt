@@ -1,6 +1,7 @@
 package com.determinasian.outandaboutevents.ui.components.event
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -43,22 +45,21 @@ import com.determinasian.outandaboutevents.ui.theme.Dimens.MinInteractionTarget
 import com.determinasian.outandaboutevents.ui.theme.Dimens.PaddingStandard
 import com.determinasian.outandaboutevents.ui.theme.Dimens.SuggestionChipSpacing
 
-
 /**
  * Any parameters should be provided in displayble format.
- * @param source the originator of the event
+ * @param host the originator of the event
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventCard(
     eventId: Long,
     thumbnailUrl: String,
-    source: String? = null,
+    host: String? = null,
     sponsor: String? = null,
     title: String,
     dateAndTimeRange: String,
     location: String,
-    isGrid: Boolean = false, // TODO support a grid view
+    isGrid: Boolean = false, // TODO support grid view for larger screens
     suggestions: List<String>? = null,
     onEventCardClick: (Long) -> Unit
 ) {
@@ -80,7 +81,7 @@ fun EventCard(
                         modifier = Modifier.weight(1.0f)
                     ) {
 
-                        SponsorSourceText(source, sponsor)
+                        VendorText(host, sponsor)
 
                         Text(
                             modifier = Modifier.fillMaxWidth(),
@@ -169,21 +170,23 @@ private fun debugPlaceholder(@DrawableRes debugPreview: Int) = if (LocalInspecti
 }
 
 @Composable
-private fun SponsorSourceText(source: String?, sponsor: String?) {
-    val result: String? = if (!source.isNullOrBlank() && !sponsor.isNullOrBlank()) {
-        "$source ${CharConstants.BULLET} $sponsor"
-    } else if (!source.isNullOrBlank()) {
-        source
-    } else if (!sponsor.isNullOrBlank()) {
-        sponsor
-    } else {
-        null
+@VisibleForTesting
+internal fun VendorText(host: String? = null, sponsor: String? = null) {
+    val result: String? = when {
+        !host.isNullOrBlank() && !sponsor.isNullOrBlank() -> {
+            "$host ${CharConstants.BULLET} $sponsor"
+        }
+
+        !host.isNullOrBlank() -> host
+        !sponsor.isNullOrBlank() -> sponsor
+        else -> null
     }
 
     if (!result.isNullOrBlank()) {
         Text(
-            text = result,
-            maxLines = 1,
+            modifier = Modifier.testTag("VendorText"),
+            text = result.uppercase(),
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.labelMedium
         )
