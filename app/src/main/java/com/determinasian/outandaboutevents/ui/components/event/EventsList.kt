@@ -10,7 +10,7 @@ val fakeEventIds = MutableList(100) { it }
 
 @Composable
 fun EventsList(navController: NavController) {
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(Dimens.SpacerHeightStandard)) {
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(Dimens.PaddingStandard)) {
         fakeEventIds.forEach { eventId ->
             item(eventId) {
                 EventCard(

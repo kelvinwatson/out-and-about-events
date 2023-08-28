@@ -1,5 +1,6 @@
 package com.determinasian.outandaboutevents.navigation
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -7,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.determinasian.outandaboutevents.ui.components.event.EventsList
+import com.determinasian.outandaboutevents.ui.theme.Dimens
 
 @Composable
 fun AppGraph(
@@ -18,7 +20,9 @@ fun AppGraph(
         navController = navController,
         route = Graph.Routes.APP,
         startDestination = TopLevelDestination.List.route,
-        modifier = Modifier.then(modifier)
+        modifier = Modifier
+            .then(modifier)
+            .padding(horizontal = Dimens.PaddingStandard)
     ) {
         composable(TopLevelDestination.List.route) {
             EventsList(navController = navController)

@@ -40,7 +40,7 @@ import com.determinasian.outandaboutevents.ui.theme.Dimens.CardContentPadding
 import com.determinasian.outandaboutevents.ui.theme.Dimens.ImageRoundedCorner
 import com.determinasian.outandaboutevents.ui.theme.Dimens.ImageThumbnailSize
 import com.determinasian.outandaboutevents.ui.theme.Dimens.MinInteractionTarget
-import com.determinasian.outandaboutevents.ui.theme.Dimens.SpacerHeightStandard
+import com.determinasian.outandaboutevents.ui.theme.Dimens.PaddingStandard
 import com.determinasian.outandaboutevents.ui.theme.Dimens.SuggestionChipSpacing
 
 
@@ -103,7 +103,7 @@ fun EventCard(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(SpacerHeightStandard))
+                Spacer(modifier = Modifier.height(PaddingStandard))
 
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Column(modifier = Modifier.weight(1f)) {

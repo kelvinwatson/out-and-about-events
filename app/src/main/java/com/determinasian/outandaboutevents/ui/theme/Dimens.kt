@@ -1,9 +1,6 @@
 package com.determinasian.outandaboutevents.ui.theme
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 // TODO Use CompositionLocalProvider to provide dimensions as part of [OutAndAboutEventsTheme]
@@ -22,7 +19,7 @@ object Dimens {
     val ImageRoundedCorner = 8.dp
     val ImageThumbnailSize = 72.dp
 
-    val SpacerHeightStandard = 16.dp
+    val PaddingStandard = 16.dp
 
     val MinInteractionTarget = 24.dp
 
