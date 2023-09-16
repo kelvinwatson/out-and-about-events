@@ -14,6 +14,11 @@
     <string name="account">Account</string>
     <string name="account_icon_content_desc">Account icon</string>
 
+    <string name="detail">Detail</string>
+
+
+    <string name="settings">Settings</string>
+
     <!-- todo add developer settings to drawer -->
     <string name="developer_settings">Developer settings</string>
     <string name="developer_settings_icon_content_desc">developer settings</string>

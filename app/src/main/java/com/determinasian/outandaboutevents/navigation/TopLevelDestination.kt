@@ -8,7 +8,6 @@ import androidx.compose.material.icons.sharp.Info
 import androidx.compose.material.icons.sharp.List
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.determinasian.outandaboutevents.R
-
 sealed class TopLevelDestination(
     @StringRes val name: Int,
     val route: String,
