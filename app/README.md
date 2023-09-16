@@ -21,3 +21,68 @@
 * Images
   * Coil placeholders images for error and loading states
 * Modularize ui components, domain layer etc
+
+## Coding conventions
+
+Method parameters are ordered alphabetically, starting with required
+non-lambda params, followed by optional non-lambda params (modifier must  
+be first in this list), followed by required lambda params, followed by  
+optional lambda params.
+
+Source: https://android.googlesource.com/platform/frameworks/support/+/androidx-main/compose/docs/compose-api-guidelines.md
+
+Example:
+
+```kotlin
+@Composable
+fun MyComposable(
+    currentTitle: String,
+    isDarkMode: Boolean,
+    modifier: Modifier = Modifier,
+    myString: String? = null,
+    shouldIntegrate: Boolean = false,
+    nonOptionalLambda: () -> Unit,
+    optionalLambda: (() -> 
+@Composable
+fun MyComposable(
+    currentTitle: String,
+    isDarkMode: Boolean,
+    modifier: Modifier = Modifier,
+    myString: String? = null,
+    shouldIntegrate: Boolean = false,
+    nonOptionalLambda: () -> Unit,
+    optionalLambda: (() -> Unit)?= null
+) {
+    //... 
+@Composable
+fun MyComposable(
+    currentTitle: String,
+    isDarkMode: Boolean,
+    modifier: Modifier = Modifier,
+    myString: String? = null,
+    shouldIntegrate: Boolean = false,
+    nonOptionalLambda: () -> Unit,
+    optionalLambda: (() -> Unit)?= null
+) {
+    //...
+}
+```
+}
+```Unit)?= null
+) {
+    //... 
+@Composable
+fun MyComposable(
+    currentTitle: String,
+    isDarkMode: Boolean,
+    modifier: Modifier = Modifier,
+    myString: String? = null,
+    shouldIntegrate: Boolean = false,
+    nonOptionalLambda: () -> Unit,
+    optionalLambda: (() -> Unit)?= null
+) {
+    //...
+}
+```
+}
+```

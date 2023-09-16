@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,15 +21,23 @@ import com.determinasian.outandaboutevents.ui.modifier.conditional
 @OptIn(ExperimentalMaterial3Api::class)
 fun App(
     windowSizeClass: WindowSizeClass,
-    appState: AppState = rememberAppState(windowSizeClass = windowSizeClass)
+    eventListToolbarScrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
+    appState: AppState = rememberAppState(
+        eventListToolbarScrollBehavior = eventListToolbarScrollBehavior,
+        windowSizeClass = windowSizeClass
+    )
 ) {
-
-    // Must be hoisted to this level for nestedScroll modifier
-    val eventListToolbarScrollBehavior = appState.collapsingToolbarScrollBehavior
-
     Scaffold(
         topBar = {
-            OabeTopBar(appState, eventListToolbarScrollBehavior)
+            OabeTopBar(
+                currentToolbarTitle = appState.currentToolbarTitle,
+                eventsListCollapsingToolbarScrollBehavior = appState.eventListToolbarScrollBehavior,
+                isCurrentDestinationList = appState.isCurrentDestinationList,
+                isDarkMode = appState.isDarkMode,
+                pinnedToolbarScrollBehavior = appState.pinnedToolbarScrollBehavior
+            ) {
+                appState.navController.popBackStack()
+            }
         },
         modifier = Modifier
             .fillMaxSize()

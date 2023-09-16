@@ -14,12 +14,13 @@ import androidx.compose.ui.res.stringResource
 @Composable
 fun StandardAppBar(
     @StringRes titleRes: Int,
-    topBarScrollBehavior: TopAppBarScrollBehavior
+    topBarScrollBehavior: TopAppBarScrollBehavior,
+    onBackPressed: () -> Unit
 ) {
 
     TopAppBar(
         navigationIcon = {
-            AppBarDrawerIcon()
+            AppBarBackArrowIcon(onBackPressed)
         },
         title = {
             Row(

@@ -35,6 +35,8 @@ fun AppGraph(
 
         detailGraph(navController = navController)
 
+        exploreGraph(navController = navController)
+
         accountGraph(navController = navController)
 
         settingsGraph(navController = navController)
@@ -54,13 +56,14 @@ fun NavGraphBuilder.detailGraph(navController: NavController) {
     // we'd only ever need to view one detail at a time, so we add it to the top level nav graph
     composable(Destination.Detail.route) {
         Column {
-            Button(onClick = {
-                navController.popBackStack()
-            }) {
-                Text("fake back arrow")
-            }
             Text("Hello event detail")
         }
+    }
+}
+
+fun NavGraphBuilder.exploreGraph(navController: NavController) {
+    composable(TopLevelDestination.Explore.route) {
+        Text("Hello explore")
     }
 }
 
@@ -71,7 +74,7 @@ fun NavGraphBuilder.favesGraph(navController: NavController) {
 }
 
 fun NavGraphBuilder.settingsGraph(navController: NavController) {
-    composable(Destination.DeveloperSettings.route) {
+    composable(Destination.Settings.route) {
         Text("Hello settings")
     }
 }

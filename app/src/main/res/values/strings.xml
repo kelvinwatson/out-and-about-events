@@ -26,6 +26,8 @@
     <string name="menu">Menu</string>
     <string name="menu_icon_content_desc">Menu</string>
 
+    <string name="arrow_back_icon_content_desc">Go back</string>
+
     <string name="out_and_about">Out and About</string>
     <string name="events_for_men">Events for men</string>
 

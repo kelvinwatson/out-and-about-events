@@ -19,25 +19,26 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.determinasian.outandaboutevents.navigation.TopLevelDestination
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun rememberAppState(
+    eventListToolbarScrollBehavior: TopAppBarScrollBehavior,
     navController: NavHostController = rememberNavController(),
     windowSizeClass: WindowSizeClass,
 ): AppState = remember(
+    eventListToolbarScrollBehavior,
     navController,
     windowSizeClass
-) { AppState(navController, windowSizeClass) }
+) { AppState(eventListToolbarScrollBehavior, navController, windowSizeClass) }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Stable
 class AppState(
+    val eventListToolbarScrollBehavior: TopAppBarScrollBehavior,
     val navController: NavHostController,
     private val windowSizeClass: WindowSizeClass
 ) {
-
-    @OptIn(ExperimentalMaterial3Api::class)
-    val collapsingToolbarScrollBehavior: TopAppBarScrollBehavior
-        @Composable get() = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     @OptIn(ExperimentalMaterial3Api::class)
     val pinnedToolbarScrollBehavior: TopAppBarScrollBehavior
