@@ -2,8 +2,6 @@ package com.determinasian.outandaboutevents.navigation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +10,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.determinasian.outandaboutevents.ui.components.account.Account
 import com.determinasian.outandaboutevents.ui.components.event.EventsList
 import com.determinasian.outandaboutevents.ui.theme.Dimens
 
@@ -74,7 +73,7 @@ fun NavGraphBuilder.favesGraph(navController: NavController) {
 }
 
 fun NavGraphBuilder.settingsGraph(navController: NavController) {
-    composable(Destination.Settings.route) {
+    composable(Destination.UserSettings.route) {
         Text("Hello settings")
     }
 }
@@ -87,21 +86,13 @@ fun NavGraphBuilder.developerSettingsGraph(navController: NavController) {
 
 fun NavGraphBuilder.accountGraph(navController: NavController) {
     composable(TopLevelDestination.Account.route) {
-        LazyColumn {
-            item {
-                Button(onClick = {
-                    navController.navigate(route = Destination.Settings.route)
-                }) {
-                    Text("Settings")
-                }
+        Account(
+            onNavigateToUserSettings = {
+                navController.navigate(route = Destination.UserSettings.route)
+            },
+            onNavigateToDeveloperSettings = {
+                navController.navigate(route = Destination.DeveloperSettings.route)
             }
-            item {
-                Button(onClick = {
-                    navController.navigate(route = Destination.DeveloperSettings.route)
-                }) {
-                    Text("Developer Settings")
-                }
-            }
-        }
+        )
     }
 }

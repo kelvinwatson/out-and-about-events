@@ -3,7 +3,6 @@ package com.determinasian.outandaboutevents.dependencyinjection
 import com.determinasian.outandaboutevents.model.DarkThemeConfig
 import com.determinasian.outandaboutevents.model.ThemeType
 import com.determinasian.outandaboutevents.model.UserSettings
-import com.determinasian.outandaboutevents.ui.theme.ThemeHelper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

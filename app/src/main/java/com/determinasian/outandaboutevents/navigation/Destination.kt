@@ -12,9 +12,9 @@ sealed class Destination(
         "Detail"
     )
 
-    data object Settings : Destination(
-        R.string.settings,
-        "Settings"
+    data object UserSettings : Destination(
+        R.string.user_settings,
+        "UserSettings"
     )
 
     data object DeveloperSettings : Destination(
