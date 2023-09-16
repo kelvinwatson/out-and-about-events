@@ -1,5 +1,6 @@
 package com.determinasian.outandaboutevents
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
@@ -33,12 +34,14 @@ class AppState(
     val navController: NavHostController,
     private val windowSizeClass: WindowSizeClass
 ) {
+
     @OptIn(ExperimentalMaterial3Api::class)
     val collapsingToolbarScrollBehavior: TopAppBarScrollBehavior
-        @Composable get() = TopAppBarDefaults.enterAlwaysScrollBehavior()
+        @Composable get() = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
-    val currentDestination: NavDestination?
-        @Composable get() = navController.currentBackStackEntryAsState().value?.destination
+    @OptIn(ExperimentalMaterial3Api::class)
+    val pinnedToolbarScrollBehavior: TopAppBarScrollBehavior
+        @Composable get() = TopAppBarDefaults.pinnedScrollBehavior()
 
     val isDarkMode: Boolean
         @Composable get() = isSystemInDarkTheme() //TODO allow user override via CompositionLocal
@@ -46,13 +49,18 @@ class AppState(
     val isCurrentDestinationList: Boolean
         @Composable get() = TopLevelDestination.List.route == currentDestination?.route
 
+    @get:StringRes
+    val currentToolbarTitle: Int
+        @Composable get() = getToolbarTitle(currentDestination?.route)
+
+    @Suppress("KotlinConstantConditions")
     val showBottomBar: Boolean
-        get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
-                windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+        get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
+                || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+                || true //FIXME only supporting bottomBar right now
 
     val showNavRail: Boolean
         get() = !showBottomBar
-
 
     val topLevelDestinations = listOf(
         TopLevelDestination.List,
@@ -60,6 +68,9 @@ class AppState(
         TopLevelDestination.Explore,
         TopLevelDestination.Account
     )
+
+    private val currentDestination: NavDestination?
+        @Composable get() = navController.currentBackStackEntryAsState().value?.destination
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         navController.navigate(topLevelDestination.route, navOptions {
@@ -77,4 +88,7 @@ class AppState(
             restoreState = true
         })
     }
+
+    private fun getToolbarTitle(route: String?) =
+        topLevelDestinations.find { it.route == route }?.name ?: -1
 }

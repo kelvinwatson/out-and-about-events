@@ -10,9 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
 import com.determinasian.outandaboutevents.navigation.AppGraph
-import com.determinasian.outandaboutevents.ui.components.appbar.CollapsingAppBar
+import com.determinasian.outandaboutevents.ui.components.appbar.OabeTopBar
 import com.determinasian.outandaboutevents.ui.components.navigation.BottomNav
 import com.determinasian.outandaboutevents.ui.components.navigation.OabeBottomBarConstants
+import com.determinasian.outandaboutevents.ui.modifier.conditional
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,17 +22,18 @@ fun App(
     appState: AppState = rememberAppState(windowSizeClass = windowSizeClass)
 ) {
 
-    val toolbarScrollBehavior = appState.collapsingToolbarScrollBehavior
+    // Must be hoisted to this level for nestedScroll modifier
+    val eventListToolbarScrollBehavior = appState.collapsingToolbarScrollBehavior
+
     Scaffold(
         topBar = {
-            // conditional rendering
-            if (appState.isCurrentDestinationList) {
-                CollapsingAppBar(toolbarScrollBehavior, appState.isDarkMode)
-            }
+            OabeTopBar(appState, eventListToolbarScrollBehavior)
         },
         modifier = Modifier
             .fillMaxSize()
-            .nestedScroll(toolbarScrollBehavior.nestedScrollConnection),
+            .conditional(condition = appState.isCurrentDestinationList, ifTrue = {
+                nestedScroll(eventListToolbarScrollBehavior.nestedScrollConnection)
+            }),
         bottomBar = {
             if (appState.showBottomBar) {
                 BottomNav(

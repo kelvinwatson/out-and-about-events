@@ -23,10 +23,6 @@ val topLevelDestinations = listOf(
 @Composable
 fun BottomNav(
     navController: NavHostController,
-
-//    currentDestination: NavDestination?,
-//    onNavigateToDestination: (TopLevelDestination) -> Unit,
-//    topLevelDestinations: List<TopLevelDestination>,
     modifier: Modifier = Modifier
 ) {
     NavigationBar(modifier = modifier) {
@@ -34,7 +30,6 @@ fun BottomNav(
         val currentRoute = navBackStackEntry?.destination?.route
 
         topLevelDestinations.forEach { topLevelDestination ->
-//            val isCurrentTopLevelDestination = currentDestination?.route == topLevelDestination.route
             NavigationBarItem(
                 icon = {
                     Icon(
@@ -53,7 +48,7 @@ fun BottomNav(
                     }
                 },
                 selected = currentRoute == topLevelDestination.route,
-                alwaysShowLabel = false
+                alwaysShowLabel = true
             )
         }
     }

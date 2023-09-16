@@ -14,7 +14,6 @@ import com.determinasian.outandaboutevents.ui.theme.Dimens
 fun AppGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-//    appState: AppState = rememberAppState(windowSizeClass = rootState.windowSizeClass),
 ) {
     NavHost(
         navController = navController,

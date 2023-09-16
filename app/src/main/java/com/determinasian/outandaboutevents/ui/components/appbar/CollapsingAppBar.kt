@@ -64,7 +64,10 @@ import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CollapsingAppBar(toolbarScrollBehavior: TopAppBarScrollBehavior, isDarkMode: Boolean) {
+fun CollapsingAppBar(
+    toolbarScrollBehavior: TopAppBarScrollBehavior,
+    isDarkMode: Boolean
+) {
 
     CollapsingAppBarInternal(
         navigationIcon = { AppBarDrawerIcon() },
