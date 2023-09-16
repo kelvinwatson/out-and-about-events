@@ -1,11 +1,14 @@
 package com.determinasian.outandaboutevents.navigation
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,47 +29,76 @@ fun AppGraph(
             .padding(horizontal = Dimens.PaddingStandard)
     ) {
 
-        composable(TopLevelDestination.List.route) {
-            EventsList(onNavigateToDetails = {
-                navController.navigate(route = Destination.Detail.route)
-            })
-        }
-        composable(TopLevelDestination.Faves.route) {
-            Text("hello faves")
-        }
-        composable(TopLevelDestination.Explore.route) {
-            Text("hello explore other cities, coming soon!")
-        }
-        composable(TopLevelDestination.Account.route) {
-            LazyColumn {
-                item {
-                    Button(onClick = {
-                        navController.navigate(route = Destination.Settings.route)
-                    }) {
-                        Text("Settings")
-                    }
-                }
-                item {
-                    Button(onClick = {
-                        navController.navigate(route = Destination.DeveloperSettings.route)
-                    }) {
-                        Text("Developer Settings")
-                    }
-                }
-            }
-        }
+        eventListGraph(navController = navController)
 
-        // we'd only ever need to view one detail at a time, so we add it to the top level nav graph
-        composable(Destination.Detail.route) {
+        favesGraph(navController = navController)
+
+        detailGraph(navController = navController)
+
+        accountGraph(navController = navController)
+
+        settingsGraph(navController = navController)
+        developerSettingsGraph(navController = navController)
+    }
+}
+
+fun NavGraphBuilder.eventListGraph(navController: NavController) {
+    composable(TopLevelDestination.List.route) {
+        EventsList(onNavigateToDetails = {
+            navController.navigate(route = Destination.Detail.route)
+        })
+    }
+}
+
+fun NavGraphBuilder.detailGraph(navController: NavController) {
+    // we'd only ever need to view one detail at a time, so we add it to the top level nav graph
+    composable(Destination.Detail.route) {
+        Column {
+            Button(onClick = {
+                navController.popBackStack()
+            }) {
+                Text("fake back arrow")
+            }
             Text("Hello event detail")
         }
+    }
+}
 
-        composable(Destination.Settings.route) {
-            Text("Hello settings")
-        }
+fun NavGraphBuilder.favesGraph(navController: NavController) {
+    composable(TopLevelDestination.Faves.route) {
+        Text("hello faves")
+    }
+}
 
-        composable(Destination.DeveloperSettings.route) {
-            Text("Hello developer settings")
+fun NavGraphBuilder.settingsGraph(navController: NavController) {
+    composable(Destination.DeveloperSettings.route) {
+        Text("Hello settings")
+    }
+}
+
+fun NavGraphBuilder.developerSettingsGraph(navController: NavController) {
+    composable(Destination.DeveloperSettings.route) {
+        Text("Hello developer settings")
+    }
+}
+
+fun NavGraphBuilder.accountGraph(navController: NavController) {
+    composable(TopLevelDestination.Account.route) {
+        LazyColumn {
+            item {
+                Button(onClick = {
+                    navController.navigate(route = Destination.Settings.route)
+                }) {
+                    Text("Settings")
+                }
+            }
+            item {
+                Button(onClick = {
+                    navController.navigate(route = Destination.DeveloperSettings.route)
+                }) {
+                    Text("Developer Settings")
+                }
+            }
         }
     }
 }
