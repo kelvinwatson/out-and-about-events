@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.determinasian.outandaboutevents.ui.components.account.Account
 import com.determinasian.outandaboutevents.ui.components.event.EventsList
+import com.determinasian.outandaboutevents.ui.components.explore.Explore
 import com.determinasian.outandaboutevents.ui.theme.Dimens
 
 @Composable
@@ -45,7 +46,7 @@ fun AppGraph(
 
 fun NavGraphBuilder.eventListGraph(navController: NavController) {
     composable(TopLevelDestination.List.route) {
-        EventsList(onNavigateToDetails = {
+        EventsList(onNavigateToEventDetail = {
             navController.navigate(route = Destination.Detail.route)
         })
     }
@@ -62,7 +63,9 @@ fun NavGraphBuilder.detailGraph(navController: NavController) {
 
 fun NavGraphBuilder.exploreGraph(navController: NavController) {
     composable(TopLevelDestination.Explore.route) {
-        Text("Hello explore")
+        Explore {
+            navController.navigate(route = Destination.Detail.route)
+        }
     }
 }
 

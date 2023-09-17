@@ -8,7 +8,7 @@ import com.determinasian.outandaboutevents.ui.theme.Dimens
 val fakeEventIds = MutableList(100) { it }
 
 @Composable
-fun EventsList(onNavigateToDetails: (eventId: Long) -> Unit) {
+fun EventsList(onNavigateToEventDetail: (eventId: Long) -> Unit) {
     LazyColumn(verticalArrangement = Arrangement.spacedBy(Dimens.PaddingStandard)) {
         fakeEventIds.forEach { eventId ->
             item(eventId) {
@@ -25,7 +25,7 @@ fun EventsList(onNavigateToDetails: (eventId: Long) -> Unit) {
                     suggestions = listOf("Dance party", "Men only"),
                     onEventCardClick = {
 
-                        onNavigateToDetails(eventIdAsLong)
+                        onNavigateToEventDetail(eventIdAsLong)
                     }
                 )
             }

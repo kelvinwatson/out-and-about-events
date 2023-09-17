@@ -58,7 +58,7 @@ fun Account(
                         .padding(horizontal = 20.dp)
                 ) {
                     Text(text = "Christian Morris", style = MaterialTheme.typography.titleMedium)
-                    Text("Tier 1 subscribed")
+                    Text("Tier 3 subscribed")
                     Spacer(modifier = Modifier.height(8.dp))
                     OutlinedButton(onClick = { /*TODO*/ }) {
                         Text("Upgrade subscription")
